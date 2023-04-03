@@ -1,4 +1,4 @@
-# KIJIJI Apt/condo/house listing scraper posted across GTA!
+# KIJIJI Scraper
 
 Kijiji scraper is a web scraper crated using BS4, python to collect rental properties listed accross GTA. The data pipeline has been scheduled to run daily at 10 am using Apache Airflow.
 # overall DAG
