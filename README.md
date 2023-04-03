@@ -76,3 +76,5 @@ networks:
 > Note: to create a docker network - `docker network create airflow-network` <br>
 > Note: double check if the network has been created - `docker network ls`
 
+Setup smtp for mailing 
+https://noted.lol/setup-gmail-smtp-sending-2023/
