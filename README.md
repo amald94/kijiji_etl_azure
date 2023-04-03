@@ -1,6 +1,7 @@
 # KIJIJI Scraper
 
-Kijiji scraper is a web scraper created using BS4, python to collect rental properties listed accross GTA. The data pipeline has been scheduled to run daily at 10 am using Apache Airflow.
+Kijiji scraper is a web scraper created using BS4, python to collect rental properties listed accross GTA. The data pipeline has been scheduled to run daily at 10 am using Apache Airflow. <br>
+We have access to first 100 pages on kijiji and I decided to do the task by splitting by 20 pages for each task to run them in parallel.
 # overall DAG
 <img src="screenshot/dag.png" />
 # Apt/condo scraper
