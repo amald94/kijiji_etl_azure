@@ -2,17 +2,20 @@
 
 Kijiji scraper is a web scraper created using BS4, python to collect rental properties listed accross GTA. The data pipeline has been scheduled to run daily at 10 am using Apache Airflow. <br>
 - We have access to first 100 pages on kijiji and I decided to do the task by splitting by 20 pages for each task to run them in parallel.
+- Collect rental properties
+- Send email notification upon task failure/completion
+- Upload the scraped data to Azure data lake
+- Process the data using spark using Azure Databricks
+- Save the processed data back to Azure Data Lake
+- Create dashboard uisng the processed data
+- Build a ML model to predict the rent in a city within GTA based on the data we collected
+
 # overall DAG
 <img src="screenshot/dag.png" />
 # Apt/condo scraper
 <img src="screenshot/dag2.png" />
 # House scraper
 <img src="screenshot/dag3.png" />
-
-- Collect rental properties
-- process the data using spark
-- create dashboard 
-- build a ML model to predict the rent in a city within GTA based on the data we collected
 
 ## Tech Stack
 
