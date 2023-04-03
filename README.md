@@ -69,6 +69,6 @@ networks:
     external: true
     name: "airflow-network"
 ```
-> Note: to create a docker network - `docker network create airflow-network`
+> Note: to create a docker network - `docker network create airflow-network` <br>
 > Note: double check if the network has been created - `docker network ls`
 
