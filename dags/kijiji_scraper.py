@@ -2,7 +2,9 @@ from airflow import DAG
 from airflow.operators.python import PythonOperator, BranchPythonOperator
 from airflow.operators.bash import BashOperator
 from airflow.operators.dummy import DummyOperator
+from airflow.operators.email_operator import EmailOperator
 from airflow.utils.task_group import TaskGroup
+from airflow.utils.email import send_email
 from airflow.models.baseoperator import chain
 from datetime import datetime, timedelta
 import pandas as pd
@@ -90,6 +92,7 @@ def parse_html(main_url,start_page, end_page):
         if not status:
             data = []
             break
+        break
 
     return data
 
@@ -156,11 +159,20 @@ def process_data(**context):
     file_name = "kijiji_gta_"+current_date+".xlsx"
     df.to_excel(file_name)
 
-def check_scrape_status():
+def send_email_fun(scrape_type, **context):
+    now = datetime.now()
+    current_date = now.strftime("%Y-%m-%d")
     if scrape_status:
-        print("Scraping finished!!")
+        html = f"Task group {scrape_type} has completed!!!- {current_date}"
+        subject = f"scraping completed for {scrape_type} - {current_date}"
     else:
-        print("Scraping failed!!")
+        html = f"Task group {scrape_type} has completed!!!- {current_date}"
+        subject = f"scraping failed for {scrape_type} - {current_date}"
+    send_email(
+        to="amaldasdxm@gmail.com",
+        subject=subject,
+        html_content= html
+    )
 
 ############################################################
 # Main DAG
@@ -193,7 +205,7 @@ with DAG(DAG_NAME,
                     op_kwargs={"start_page": (i-1)*20+1, "end_page": i*20},
                 )
             )
-
+    
     scrape_house_task = PythonOperator(
         task_id='scrape_house_task',
         python_callable=scrape_house_listings,
@@ -205,17 +217,30 @@ with DAG(DAG_NAME,
         for i in range(2, 6):
             scrape_pages.append(
                 PythonOperator(
-                    task_id=f"scrape_pages_{i}",
+                    task_id=f"scrape_pages_{i}_2",
                     python_callable=scrape_house_listings,
                     op_kwargs={"start_page": (i-1)*20+1, "end_page": i*20},
                 )
             )
 
-    scraping_ends = PythonOperator(
-        task_id="scraping_ends",
-        python_callable=check_scrape_status
+    apartment_notification = PythonOperator(
+        task_id='apartment_completion_notification',
+        python_callable=send_email_fun,
+        provide_context=True,
+        op_kwargs={'scrape_type': 'scrape_apartment_pages'}
     )
+
+    house_notification = PythonOperator(
+        task_id='house_completion_notification',
+        python_callable=send_email_fun,
+        provide_context=True,
+        op_kwargs={'scrape_type': 'scrape_house_pages'}
+    )
+
+    scraping_ends = DummyOperator(
+        task_id="scraping_ends"
+    )
+
     
-    start_scrape >> scrape_apartment_task >> scrape_group >> scraping_ends
-    start_scrape >> scrape_house_task >> scrape_group2 >> scraping_ends
-    
+    start_scrape >> scrape_apartment_task >> scrape_group >> apartment_notification >> scraping_ends
+    start_scrape >> scrape_house_task >> scrape_group2 >> house_notification >> scraping_ends
