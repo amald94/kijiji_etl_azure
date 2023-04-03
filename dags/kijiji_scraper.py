@@ -92,7 +92,7 @@ def parse_html(main_url,start_page, end_page):
         if not status:
             data = []
             break
-        break
+        # break
 
     return data
 
@@ -200,7 +200,7 @@ with DAG(DAG_NAME,
         for i in range(2, 6):
             scrape_pages.append(
                 PythonOperator(
-                    task_id=f"scrape_pages_{i}",
+                    task_id=f"scrape_pages_from_{(i-1)*20+1}_{i*20}",
                     python_callable=scrape_apartment_listings,
                     op_kwargs={"start_page": (i-1)*20+1, "end_page": i*20},
                 )
@@ -217,21 +217,21 @@ with DAG(DAG_NAME,
         for i in range(2, 6):
             scrape_pages.append(
                 PythonOperator(
-                    task_id=f"scrape_pages_{i}_2",
+                    task_id=f"scrape_pages_from_{(i-1)*20+1}_{i*20}_2",
                     python_callable=scrape_house_listings,
                     op_kwargs={"start_page": (i-1)*20+1, "end_page": i*20},
                 )
             )
 
     apartment_notification = PythonOperator(
-        task_id='apartment_completion_notification',
+        task_id='apt_scrape_status_email_notification',
         python_callable=send_email_fun,
         provide_context=True,
         op_kwargs={'scrape_type': 'scrape_apartment_pages'}
     )
 
     house_notification = PythonOperator(
-        task_id='house_completion_notification',
+        task_id='house_scrape_status_email_notification',
         python_callable=send_email_fun,
         provide_context=True,
         op_kwargs={'scrape_type': 'scrape_house_pages'}
