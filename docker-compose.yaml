@@ -73,6 +73,7 @@ x-airflow-common:
     AIRFLOW__SMTP__SMTP_USER: fill-mailid
     AIRFLOW__SMTP__SMTP_PASSWORD: fill-password
     AIRFLOW__SMTP__SMTP_PORT: 587
+    AIRFLOW__CORE__PYTHON_PATH : ${AIRFLOW_PROJ_DIR:-.}/src:/opt/airflow/src
     # WARNING: Use _PIP_ADDITIONAL_REQUIREMENTS option ONLY for a quick checks
     # for other purpose (development, test and especially production usage) build/extend Airflow image.
     _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:- openpyxl}
@@ -80,6 +81,7 @@ x-airflow-common:
     - ${AIRFLOW_PROJ_DIR:-.}/dags:/opt/airflow/dags
     - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs
     - ${AIRFLOW_PROJ_DIR:-.}/plugins:/opt/airflow/plugins
+    - ${AIRFLOW_PROJ_DIR:-.}/src:/opt/airflow/src
     - C:/Users/a.das/docker_share/data:/path/to/container/folder
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
