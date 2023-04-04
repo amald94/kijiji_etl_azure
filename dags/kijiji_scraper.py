@@ -2,21 +2,17 @@ from airflow import DAG
 from airflow.operators.python import PythonOperator, BranchPythonOperator
 from airflow.operators.bash import BashOperator
 from airflow.operators.dummy import DummyOperator
-from airflow.operators.email_operator import EmailOperator
 from airflow.utils.task_group import TaskGroup
 from airflow.utils.email import send_email
-from airflow.models.baseoperator import chain
-from datetime import datetime, timedelta
+from airflow.models import Variable
 import pandas as pd
-import requests
-from bs4 import BeautifulSoup
 import time
 from dateutil.relativedelta import relativedelta
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 import numpy as np
 import sys
 sys.path.append('/opt/airflow/src')
-from kijiji import parse_html, parse_date_string, generate_df
+from kijiji import parse_html, parse_date_string, generate_df, write_to_adls
 
 ############################################################
 # DAG settings
@@ -33,6 +29,8 @@ DAG_MAX_ACTIVE_RUNS = 5 # Configure efficiency: Max. number of active runs for t
 ############################################################
 scrape_status = True
 working_dir = "/path/to/container/folder/"
+storage_account_name = Variable.get('storage_account_name')
+storage_account_key = Variable.get('storage_account_key')
 
 def scrape_apartment_listings(start_page, end_page,**context):
     """
@@ -48,6 +46,8 @@ def scrape_apartment_listings(start_page, end_page,**context):
         current_date = now.strftime("%Y-%m-%d")
         file_name = working_dir+"apt/kijiji_gta_"+str(start_page)+"_"+current_date+".xlsx"
         df.to_excel(file_name)
+        adls_name = "kijiji_apt_"+str(start_page)+"_"+current_date+".csv"
+        write_to_adls(df,adls_name,storage_account_name,storage_account_key,'raw','apt')
     else:
         print("scraping failed!")
         scrape_status = False
@@ -64,6 +64,8 @@ def scrape_house_listings(start_page, end_page,**context):
         current_date = now.strftime("%Y-%m-%d")
         file_name = working_dir+"house/kijiji_gta_"+str(start_page)+"_"+current_date+".xlsx"
         df.to_excel(file_name)
+        adls_name = "kijiji_house_"+str(start_page)+"_"+current_date+".csv"
+        write_to_adls(df,adls_name,storage_account_name,storage_account_key,'raw','house')
     else:
         print("scraping failed!")
         scrape_status = False

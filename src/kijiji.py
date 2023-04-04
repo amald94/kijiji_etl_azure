@@ -5,6 +5,7 @@ import time
 from dateutil.relativedelta import relativedelta
 from datetime import datetime, date
 import numpy as np
+from azure.storage.filedatalake import DataLakeServiceClient
 
 base_url = "https://www.kijiji.ca"
 apartment_listings = "https://www.kijiji.ca/b-apartments-condos/gta-greater-toronto-area/page-{}/c37l1700272"
@@ -71,7 +72,7 @@ def parse_html(type_,start_page, end_page):
         if not status:
             data = []
             break
-        break
+        # break
 
     return data
 
@@ -107,3 +108,21 @@ def generate_df(data):
     current_date = now.strftime("%Y-%m-%d")
     df['scraped_on'] = current_date
     return df
+
+
+def write_to_adls(df,df_name,storage_account_name,storage_account_key,file_system,dir_name):
+
+    service_client = DataLakeServiceClient(account_url="{}://{}.dfs.core.windows.net".format(
+                                            "https", storage_account_name), 
+                                           credential=storage_account_key
+                                          )
+    file_system_client = service_client.get_file_system_client(file_system=file_system)
+    date_str = datetime.now().strftime('%Y-%m-%d')
+    directory_name = f"{dir_name}/{date_str}"
+    directory_client = file_system_client.create_directory(directory_name)
+    directory_client = file_system_client.get_directory_client(directory_name)
+    file_client = directory_client.create_file(df_name)
+    csv_data = df.to_csv()
+    file_client.append_data(data=csv_data, offset=0, length=len(csv_data))
+    file_client.flush_data(len(csv_data))
+    
