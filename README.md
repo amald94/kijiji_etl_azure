@@ -1,6 +1,6 @@
 # KIJIJI Scraper
 
-The Kijiji scraper is a web scraper created using BS4 and Python to collect rental properties listed across the Greater Toronto Area (GTA). The data pipeline has been scheduled to run daily at 10 am using Apache Airflow. <br>
+The Kijiji scraper is a web scraper created using BS4 and Python to collect rental properties listed across the Greater Toronto Area (GTA). The data pipeline has been **scheduled** to run **daily at 10 am** using **Apache Airflow**. <br>
 
 + **Data Collection**
     + Since we have access to only the first 100 pages on Kijiji, I decided to split the task into 20-page chunks to run them in parallel using **Airflow**.
