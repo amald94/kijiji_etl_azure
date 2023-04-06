@@ -24,8 +24,8 @@ The Kijiji scraper is a web scraper created using BS4 and Python to collect rent
     + Save the processed data to container processed in **Azure Data Lake**
     + Move the processed data to container processed_raw in **Azure Data Lake**
  + **Schedule the data pipeline**
-    + Schedule the pipeline using Azure data factory to run daily at 10pm
-    + Run the databricks notbook on databricks cluster
+    + Schedule the pipeline using **Azure data factory** to run daily at 10pm
+    + Run the data ingestion notbooks on **databricks cluster**
     + Send email **notification** upon activity failure/completion
  + **Analyze the data using Spark**
     + Identify the cities with the highest number of listings?
