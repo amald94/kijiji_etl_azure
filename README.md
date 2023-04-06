@@ -11,7 +11,7 @@ The Kijiji scraper is a web scraper created using BS4 and Python to collect rent
     + Load the data from Azure Data Lake using Spark on Azure Databricks
     + Performing transformations and cleaning on the data
     + Save the processed data back to Azure Data Lake
- +Analyze the data
+ + Analyze the data
     + Identify the cities with the highest number of listings?
     + Which are the top 5 cities with the highest average rent?
     + Average rent for each city
