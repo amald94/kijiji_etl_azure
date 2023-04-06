@@ -30,8 +30,10 @@ The Kijiji scraper is a web scraper created using BS4 and Python to collect rent
 
 # overall DAG
 <img src="screenshot/dag.png" />
+
 # Apt/condo scraper
 <img src="screenshot/dag2.png" />
+
 # House scraper
 <img src="screenshot/dag3.png" />
 
