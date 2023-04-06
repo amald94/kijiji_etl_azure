@@ -2,6 +2,13 @@
 
 The Kijiji scraper is a web scraper created using BS4 and Python to collect rental properties listed across the Greater Toronto Area (GTA). The data pipeline has been **scheduled** to run **daily at 10 am** using **Apache Airflow**. <br>
 
++ **Project Architecture**
+    + Tools/services used for this project
+        + **Airflow**
+        + **Azure Data Lake**
+        + **Azure DataBricks**
+        + **Azure Data Factory**  
+
 + **Data Collection**
     + Since we have access to only the first 100 pages on Kijiji, I decided to split the task into 20-page chunks to run them in parallel using **Airflow**.
     + Collect rental listings posted accross GTA
