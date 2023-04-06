@@ -6,12 +6,12 @@ The Kijiji scraper is a web scraper created using BS4 and Python to collect rent
     + Since we have access to only the first 100 pages on Kijiji, I decided to split the task into 20-page chunks to run them in parallel.
     + Collect rental listings posted accross GTA
     + Send email notification upon task failure/completion
-    + Upload the scraped data to Azure data lake
+    + Upload the scraped data to *Azure data lake*
  + Data ingestion
     + Load the data from Azure Data Lake using Spark on Azure Databricks
     + Performing transformations and cleaning on the data
     + Save the processed data back to Azure Data Lake
- + Analyze the data
+ + Analyze the data using Spark
     + Identify the cities with the highest number of listings?
     + Which are the top 5 cities with the highest average rent?
     + Average rent for each city
