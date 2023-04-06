@@ -28,6 +28,10 @@ The Kijiji scraper is a web scraper created using BS4 and Python to collect rent
     + Which city has the most affordable 1 BHK apartment for rent?
     + Identify the most affordable rental option?
 
+## Data pipeline in ADF
+
+<img src="screenshot/adf.png" />
+
 # overall DAG
 <img src="screenshot/dag.png" />
 
@@ -48,9 +52,6 @@ Kijiji Scraper Architecture uses a number of technologies/services to work prope
 - Azure Data Lake
 - Azure Databricks
 - Azure Data Factory
-
-# Data pipeline in ADF
-<img src="screenshot/adf.png" />
 
 #### Start Airflow
 
