@@ -7,8 +7,9 @@ Kijiji scraper is a web scraper created using BS4, python to collect rental prop
 - Upload the scraped data to Azure data lake
 - Process the data using spark using Azure Databricks
 - Save the processed data back to Azure Data Lake
-- Create dashboard uisng the processed data
-- Build a ML model to predict the rent in a city within GTA based on the data we collected
+- Analyze the data 
++ Item B
+    + Item B 1
 
 # overall DAG
 <img src="screenshot/dag.png" />
