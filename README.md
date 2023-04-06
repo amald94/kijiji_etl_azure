@@ -49,7 +49,8 @@ Kijiji Scraper Architecture uses a number of technologies/services to work prope
 - Azure Databricks
 - Azure Data Factory
 
-# Data pipeline in ADF
+## Data pipeline in ADF
+
 <img src="screenshot/adf.png" />
 
 #### Start Airflow
