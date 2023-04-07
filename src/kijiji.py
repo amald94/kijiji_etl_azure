@@ -8,7 +8,13 @@ import numpy as np
 from azure.storage.filedatalake import DataLakeServiceClient
 
 class KijijiDataProcessor:
-
+    """
+    A class that processes data from Kijiji using web scraping and uploads it to an Azure Data Lake Storage container.
+        Args:
+            storage_account_name (str): The name of the Azure Data Lake Storage account.
+            storage_account_key (str): The access key for the Azure Data Lake Storage account.
+            file_system (str): The name of the file system (i.e. container) where data will be uploaded.
+    """
     def __init__(self, storage_account_name, storage_account_key, file_system):
         self.storage_account_name = storage_account_name
         self.storage_account_key = storage_account_key
@@ -26,14 +32,22 @@ class KijijiDataProcessor:
 
     def parse_html(self,type_,start_page, end_page):
         """
-            A function to extract required info
-        
+            Extract rental listings of a specified type posted across the Greater Toronto Area from Kijiji.
+            The function supports parallel execution by segmenting the total pages to be scraped between a start and end page number.
+            
+            Args:
+                type_ (str): The type of rental listing to scrape (e.g. 'apartment','house').
+                start_page (int): The page number to start scraping from.
+                end_page (int): The page number to stop scraping at (inclusive).
+                
+            Returns:
+                A nested list of extracted contents from the website in following format : List[List[str]]
         """
         if type_ == "apartment":
             main_url = self.apartment_listings
         elif type_ == "house":
             main_url = self.house_lists
-
+        # loop through the start and end page and scrape the data
         for i in range(start_page,end_page):
             url_scrape = main_url.format(i)
             print(f"scraping page number : {i}")
@@ -70,9 +84,41 @@ class KijijiDataProcessor:
             # break
 
         return data
+
+    def parse_date_string(self, date_string):
+        """
+            Parses a date string extracted from a Kijiji rental listing and returns a Python date object.
+            Args:
+                date_string (str): The date string to be parsed.
+            Returns:
+                A Python date object representing the date extracted from the input string.
+        """
+        now = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
+        # Check for special cases where the date string is not in the standard format
+        if date_string == 'Yesterday':
+            return (now - relativedelta(days=1)).date()
+        elif 'minute' in date_string:
+            return now.date()
+        elif date_string.startswith('<'):
+            # Convert relative time to absolute time
+            minutes_ago = int(date_string.split()[1])
+            return datetime.now() - timedelta(minutes=minutes_ago)
+        else:
+            try:
+                return datetime.strptime(date_string, '%d/%m/%Y').date()
+            except ValueError:
+                raise ValueError(f"Invalid date string format: {date_string}")
         
     def generate_df(self,data):
-        # create a data frame
+        """
+            Creates a pandas DataFrame from a nested list of rental listings extracted from Kijiji.
+
+            Args:
+                data (List[List[str]]): A nested list where each element corresponds to a rental listing 
+                
+            Returns:
+                A pandas DataFrame where each row corresponds to a rental listing.
+        """
         df = pd.DataFrame({
                 "id":data[0],
                 "title":data[1],
@@ -91,8 +137,15 @@ class KijijiDataProcessor:
         df['scraped_on'] = current_date
         return df
 
-
     def write_to_adls(self,df,df_name,dir_name):
+        """
+            Writes a Pandas DataFrame to a CSV file in Azure Data Lake Storage.
+
+            Args:
+                df (pandas.DataFrame): The DataFrame to be written.
+                df_name (str): The name of the output CSV file.
+                dir_name (str): The name of the output directory.
+        """
 
         service_client = DataLakeServiceClient(account_url="{}://{}.dfs.core.windows.net".format(
                                                 "https", self.storage_account_name), 
