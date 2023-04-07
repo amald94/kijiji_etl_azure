@@ -37,18 +37,22 @@ def scrape_apartment_listings(start_page, end_page,**context):
         A function to scrape apartment/condo listings posted across GTA!
         NB: public has only access to first 100 pages, so we will be scraping 100 pages only.
     """
-    
+    # call parse_html function from kijiji and pass 
+    # scrape type as apartment, start page index and end page index : apartment, 1 , 20
     data = parse_html("apartment",start_page, end_page)
     
     if len(data) > 1:
         df = generate_df(data)
         now = datetime.now()
         current_date = now.strftime("%Y-%m-%d")
+        # write the data to local disk : to the location outside of docker container
         file_name = working_dir+"apt/kijiji_gta_"+str(start_page)+"_"+current_date+".xlsx"
         df.to_excel(file_name)
+        # write the data to Azure data lake by calling write_to_adls function
         adls_name = "kijiji_apt_"+str(start_page)+"_"+current_date+".csv"
         write_to_adls(df,adls_name,storage_account_name,storage_account_key,'raw','apt')
     else:
+        # if returned list of items is 0 change scrape status to False to send email notification
         print("scraping failed!")
         scrape_status = False
                 
@@ -57,20 +61,29 @@ def scrape_house_listings(start_page, end_page,**context):
         A function to scrape house rental listings posted across GTA!
         NB: public has only access to first 100 pages, so we will be scraping 100 pages only.
     """
+    # call parse_html function from kijiji and pass 
+    # scrape type as house, start page index and end page index : house, 1 , 20
     data = parse_html("house",start_page, end_page)
     if len(data) > 1:
         df = generate_df(data)
         now = datetime.now()
         current_date = now.strftime("%Y-%m-%d")
+        # write the data to local disk : to the location outside of docker container
         file_name = working_dir+"house/kijiji_gta_"+str(start_page)+"_"+current_date+".xlsx"
         df.to_excel(file_name)
+        # write the data to Azure data lake by calling write_to_adls function
         adls_name = "kijiji_house_"+str(start_page)+"_"+current_date+".csv"
         write_to_adls(df,adls_name,storage_account_name,storage_account_key,'raw','house')
     else:
+        # if returned list of items is 0 change scrape status to False to send email notification
         print("scraping failed!")
         scrape_status = False
 
 def send_email_fun(scrape_type, **context):
+    """
+        A function to send email notification using send_email helper function from airflow
+        scrape_status : is used to check if a scrape task is failed or not
+    """
     now = datetime.now()
     current_date = now.strftime("%Y-%m-%d")
     if scrape_status:
@@ -96,16 +109,16 @@ with DAG(DAG_NAME,
     concurrency=DAG_MAX_ACTIVE_RUNS
 ) as dag:
 
-    # Start
+    # Start task
     start_scrape = DummyOperator(
         task_id="start_scrape")
-
+    # apartment scrape task : page 1 - 20
     scrape_apartment_task = PythonOperator(
         task_id='scrape_apartment_task',
         python_callable=scrape_apartment_listings,
         op_kwargs={"start_page": 1, "end_page": 20},
     )
-
+    # apartment scrape task : page 21 - 100
     with TaskGroup("scrape_apartment_pages") as scrape_group:
         scrape_pages = []
         for i in range(2, 6):
@@ -116,13 +129,13 @@ with DAG(DAG_NAME,
                     op_kwargs={"start_page": (i-1)*20+1, "end_page": i*20},
                 )
             )
-    
+    # house scrape task : page 1 - 20
     scrape_house_task = PythonOperator(
         task_id='scrape_house_task',
         python_callable=scrape_house_listings,
         op_kwargs={"start_page": 1, "end_page": 20},
     )
-
+    # house scrape task : page 21 - 100
     with TaskGroup("scrape_house_pages") as scrape_group2:
         scrape_pages = []
         for i in range(2, 6):
@@ -133,7 +146,7 @@ with DAG(DAG_NAME,
                     op_kwargs={"start_page": (i-1)*20+1, "end_page": i*20},
                 )
             )
-
+    # apartment scrpae status notification
     apartment_notification = PythonOperator(
         task_id='apt_scrape_status_email_notification',
         python_callable=send_email_fun,
@@ -141,7 +154,7 @@ with DAG(DAG_NAME,
         trigger_rule='all_done',
         op_kwargs={'scrape_type': 'scrape_apartment_pages'}
     )
-
+    # house scrpae status notification
     house_notification = PythonOperator(
         task_id='house_scrape_status_email_notification',
         python_callable=send_email_fun,
@@ -149,7 +162,7 @@ with DAG(DAG_NAME,
         trigger_rule='all_done',
         op_kwargs={'scrape_type': 'scrape_house_pages'}
     )
-
+    # end task
     scraping_ends = DummyOperator(
         task_id="scraping_ends"
     )
