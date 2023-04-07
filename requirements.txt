@@ -1,0 +1,8 @@
+pandas==1.5.2
+beautifulsoup4==4.9.1
+numpy==1.21.0
+azure-core==1.26.3
+azure-datalake-store==0.0.52
+azure-storage-blob==12.15.0
+azure-storage-file-datalake==12.10.1
+openpyxl==3.0.7
