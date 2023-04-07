@@ -6,7 +6,7 @@ The Kijiji scraper is a web scraper created using BS4 and Python to collect rent
 
 + **Project Architecture**
     + Tools/services used for this project
-        + **Airflow** : Schedules the scraper at configured interval : ######Heading 6 link [Heading link](https://github.com/amald94/kijiji_etl_azure/blob/main/dags/kijiji_scraper.py "Heading link")
+        + **Airflow** : Schedules the scraper at configured interval : ######Heading 6 link [Config](https://github.com/amald94/kijiji_etl_azure/blob/main/dags/kijiji_scraper.py "Heading link")
         + **Azure Data Lake** : Used to store both raw and processed data.
         + **Azure Databricks** : Used to process the raw data.
         + **Azure Data Factory** : Used to schedule a daily trigger at 10 pm to run notebooks in Databricks once files are available in the Data Lake. 
