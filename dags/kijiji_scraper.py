@@ -12,7 +12,7 @@ from datetime import datetime, date, timedelta
 import numpy as np
 import sys
 sys.path.append('/opt/airflow/src')
-from kijiji import parse_html, parse_date_string, generate_df, write_to_adls
+from kijiji import KijijiDataProcessor
 
 ############################################################
 # DAG settings
@@ -31,6 +31,10 @@ scrape_status = True
 working_dir = "/path/to/container/folder/"
 storage_account_name = Variable.get('storage_account_name')
 storage_account_key = Variable.get('storage_account_key')
+file_system = "raw"
+processor = KijijiDataProcessor(storage_account_name=storage_account_name, 
+                                storage_account_key=storage_account_key, 
+                                file_system=file_system)
 
 def scrape_apartment_listings(start_page, end_page,**context):
     """
@@ -39,10 +43,10 @@ def scrape_apartment_listings(start_page, end_page,**context):
     """
     # call parse_html function from kijiji and pass 
     # scrape type as apartment, start page index and end page index : apartment, 1 , 20
-    data = parse_html("apartment",start_page, end_page)
+    data = processor.parse_html("apartment",start_page, end_page)
     
     if len(data) > 1:
-        df = generate_df(data)
+        df = processor.generate_df(data)
         now = datetime.now()
         current_date = now.strftime("%Y-%m-%d")
         # write the data to local disk : to the location outside of docker container
@@ -50,7 +54,7 @@ def scrape_apartment_listings(start_page, end_page,**context):
         df.to_excel(file_name)
         # write the data to Azure data lake by calling write_to_adls function
         adls_name = "kijiji_apt_"+str(start_page)+"_"+current_date+".csv"
-        write_to_adls(df,adls_name,storage_account_name,storage_account_key,'raw','apt')
+        processor.write_to_adls(df,adls_name,'apt')
     else:
         # if returned list of items is 0 change scrape status to False to send email notification
         print("scraping failed!")
@@ -63,9 +67,9 @@ def scrape_house_listings(start_page, end_page,**context):
     """
     # call parse_html function from kijiji and pass 
     # scrape type as house, start page index and end page index : house, 1 , 20
-    data = parse_html("house",start_page, end_page)
+    data = processor.parse_html("house",start_page, end_page)
     if len(data) > 1:
-        df = generate_df(data)
+        df = processor.generate_df(data)
         now = datetime.now()
         current_date = now.strftime("%Y-%m-%d")
         # write the data to local disk : to the location outside of docker container
@@ -73,7 +77,7 @@ def scrape_house_listings(start_page, end_page,**context):
         df.to_excel(file_name)
         # write the data to Azure data lake by calling write_to_adls function
         adls_name = "kijiji_house_"+str(start_page)+"_"+current_date+".csv"
-        write_to_adls(df,adls_name,storage_account_name,storage_account_key,'raw','house')
+        processor.write_to_adls(df,adls_name,'house')
     else:
         # if returned list of items is 0 change scrape status to False to send email notification
         print("scraping failed!")
