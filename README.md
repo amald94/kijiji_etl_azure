@@ -11,7 +11,7 @@ Link to dashboard app : [Dashboard app](https://github.com/amald94/kijiji_etl_az
 
 <img src="screenshot/architecture.png" />
 
-+ Tools/services used for this project
++ **Tools/services used for this project**
     + **Airflow** : Schedules the scraper at configured interval : [Config](https://github.com/amald94/kijiji_etl_azure/blob/main/dags/kijiji_scraper.py "Heading link")
     + **Azure Data Lake** : Used to store both raw and processed data.
     + **Azure Databricks** : Used to process the raw data.
