@@ -11,13 +11,12 @@ Link to dashboard app : [Dashboard app](https://github.com/amald94/kijiji_etl_az
 
 <img src="screenshot/architecture.png" />
 
-+ **Project Architecture**
-    + Tools/services used for this project
-        + **Airflow** : Schedules the scraper at configured interval : [Config](https://github.com/amald94/kijiji_etl_azure/blob/main/dags/kijiji_scraper.py "Heading link")
-        + **Azure Data Lake** : Used to store both raw and processed data.
-        + **Azure Databricks** : Used to process the raw data.
-        + **Azure Data Factory** : Used to schedule a daily trigger at 10 pm to run notebooks in Databricks once files are available in the Data Lake. 
-        + **Docker** : Used to run airflow in Windows machine
++ Tools/services used for this project
+    + **Airflow** : Schedules the scraper at configured interval : [Config](https://github.com/amald94/kijiji_etl_azure/blob/main/dags/kijiji_scraper.py "Heading link")
+    + **Azure Data Lake** : Used to store both raw and processed data.
+    + **Azure Databricks** : Used to process the raw data.
+    + **Azure Data Factory** : Used to schedule a daily trigger at 10 pm to run notebooks in Databricks once files are available in the Data Lake. 
+    + **Docker** : Used to run airflow in Windows machine
 
 + **Data Collection**
     + Schedule an airflow dag to run daily at 10 am to collect the listings
