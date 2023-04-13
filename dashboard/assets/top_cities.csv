@@ -1,0 +1,199 @@
+toronto,house,4642
+toronto,apartment/condo,4132
+mississauga,house,2054
+brampton,house,1340
+mississauga,apartment/condo,1317
+oshawa,house,1124
+markham,house,754
+brampton,apartment/condo,573
+oakville,house,558
+oshawa,apartment/condo,511
+oakville,apartment/condo,367
+markham,apartment/condo,321
+vaughan,house,310
+richmond hill,house,270
+whitby,house,234
+scarborough,house,224
+vaughan,apartment/condo,190
+newmarket,house,186
+scarborough,apartment/condo,175
+georgina,house,174
+pickering,house,158
+burlington,house,148
+milton,house,144
+bowmanville,house,136
+ajax,house,132
+north york,apartment/condo,121
+north york,house,120
+whitchurch-stouffville,house,116
+burlington,apartment/condo,113
+whitby,apartment/condo,110
+richmond hill,apartment/condo,104
+old toronto,house,98
+etobicoke,apartment/condo,98
+bradford,house,98
+orangeville,house,94
+etobicoke,house,88
+old toronto,apartment/condo,86
+courtice,house,78
+milton,apartment/condo,77
+pickering,apartment/condo,76
+caledon,house,74
+ajax,apartment/condo,73
+bradford west gwillimbury,house,70
+newmarket,apartment/condo,67
+aurora,house,62
+concord,house,58
+east york,apartment/condo,51
+norval,house,48
+east york,house,42
+bowmanville,apartment/condo,41
+georgina,apartment/condo,35
+east gwillimbury,house,34
+whitchurch-stouffville,apartment/condo,27
+aurora,apartment/condo,26
+orangeville,apartment/condo,25
+bolton,house,24
+thornhill,house,22
+erin mills,house,22
+cobourg,apartment/condo,22
+thornhill,apartment/condo,21
+erin mills,apartment/condo,21
+acton,apartment/condo,19
+cobourg,house,18
+acton,house,18
+hamilton,house,16
+deerfield,house,16
+hamilton,apartment/condo,14
+bradford west gwillimbury,apartment/condo,14
+courtice,apartment/condo,13
+caledon,apartment/condo,13
+woodbridge,house,12
+halton hills,house,12
+bolton,apartment/condo,12
+concord,apartment/condo,11
+township of melancthon,house,10
+queensville,house,10
+meadowvale village,apartment/condo,10
+king city,house,10
+hampton,house,10
+georgetown,house,10
+erin,house,10
+campbellville,house,10
+caledon east,house,10
+windfields,house,8
+roseneath,house,8
+mount albert,house,8
+innisfil,house,8
+halton hills,apartment/condo,8
+east credit,apartment/condo,8
+woodbridge,apartment/condo,7
+uxbridge,apartment/condo,7
+newcastle,apartment/condo,7
+eastdale,apartment/condo,7
+bradford,apartment/condo,7
+york,apartment/condo,6
+town of caledon,house,6
+rockwood,house,6
+new tecumseth,house,6
+hampton,apartment/condo,6
+georgetown,apartment/condo,6
+campbellville,apartment/condo,6
+ashburn,house,6
+town of caledon,apartment/condo,5
+north yorks,apartment/condo,5
+kitchener,apartment/condo,5
+valley creek,house,4
+tottenham,house,4
+sutton,house,4
+streetsville,house,4
+schomberg,house,4
+orillia,house,4
+north yorks,house,4
+nobleton,house,4
+newcastle,house,4
+mineola,apartment/condo,4
+mineola,house,4
+meadowvale village,house,4
+maple,apartment/condo,4
+lefroy,apartment/condo,4
+kettleby,apartment/condo,4
+eden mills,house,4
+east gwillimbury,apartment/condo,4
+east credit,house,4
+donevan,apartment/condo,4
+deerfield,apartment/condo,4
+churchville,apartment/condo,4
+churchville,house,4
+township of guelph,apartment/condo,3
+streetsville,apartment/condo,3
+palermo west,apartment/condo,3
+meadowvale,apartment/condo,3
+lakeview,apartment/condo,3
+erin,apartment/condo,3
+cooksville,apartment/condo,3
+bramalea,apartment/condo,3
+barrie,apartment/condo,3
+york,house,2
+valley creek,apartment/condo,2
+uxbridge,house,2
+unionville,apartment/condo,2
+township of guelph,house,2
+tottenham,apartment/condo,2
+thorold,house,2
+stouffville,apartment/condo,2
+stouffville,house,2
+samac,house,2
+regional municipality of york,house,2
+port hope,apartment/condo,2
+port hope,house,2
+old malton village,house,2
+nobleton,apartment/condo,2
+niagara falls,house,2
+newtonville,house,2
+new tecumseth,apartment/condo,2
+meadowvale,house,2
+malton,house,2
+lefroy,house,2
+kitchener,house,2
+kettleby,house,2
+inglewood,apartment/condo,2
+guelph,house,2
+grimsby,house,2
+gormley,house,2
+collingwood,house,2
+cambridge,apartment/condo,2
+cambridge,house,2
+bronte,house,2
+ashburn,apartment/condo,2
+windfields,apartment/condo,1
+township of melancthon,apartment/condo,1
+toronto m9m 0b5,apartment/condo,1
+thorold,apartment/condo,1
+sutton,apartment/condo,1
+spring valley,apartment/condo,1
+schomberg,apartment/condo,1
+roseneath,apartment/condo,1
+rockwood,apartment/condo,1
+regional municipality of york,apartment/condo,1
+regional municipality of peel,apartment/condo,1
+port perry,apartment/condo,1
+ottawa,apartment/condo,1
+orillia,apartment/condo,1
+niagara on the lake,apartment/condo,1
+mount albert,apartment/condo,1
+missisauga,apartment/condo,1
+milliken,apartment/condo,1
+malton,apartment/condo,1
+king city,apartment/condo,1
+king,apartment/condo,1
+innisfil,apartment/condo,1
+guelph,apartment/condo,1
+grimsby,apartment/condo,1
+grafton,apartment/condo,1
+gormley,apartment/condo,1
+eden mills,apartment/condo,1
+collingwood,apartment/condo,1
+brooklin,apartment/condo,1
+bronte,apartment/condo,1
+berczy village,apartment/condo,1
