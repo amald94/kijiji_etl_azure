@@ -7,9 +7,10 @@ The Kijiji scraper is a web scraper created using BS4 and Python to collect rent
 
 Link to dashboard app : [Dashboard app](https://github.com/amald94/kijiji_etl_azure/tree/main/dashboard "Heading link")
 
++ **Project Architecture**
+
 <img src="screenshot/architecture.png" />
 
-+ **Project Architecture**
     + Tools/services used for this project
         + **Airflow** : Schedules the scraper at configured interval : [Config](https://github.com/amald94/kijiji_etl_azure/blob/main/dags/kijiji_scraper.py "Heading link")
         + **Azure Data Lake** : Used to store both raw and processed data.
