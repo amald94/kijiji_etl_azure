@@ -1,4 +1,4 @@
-# KIJIJI Scraper
+# KIJIJI End2End data pipeline
 
 The Kijiji scraper is a web scraper created using BS4 and Python to collect rental properties listed across the Greater Toronto Area (GTA). The data pipeline has been **scheduled** to run **daily at 10 am** using **Apache Airflow**. <br>
 
