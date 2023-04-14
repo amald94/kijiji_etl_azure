@@ -1,3 +1,7 @@
+
+
+<img src="./screenshot/architecture.png" />
+
 Install the required python packages
 ```sh
 pip install -r requirements.txt
