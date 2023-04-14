@@ -2,7 +2,7 @@
 
 The Kijiji scraper is a web scraper created using BS4 and Python to collect rental properties listed across the Greater Toronto Area (GTA). The data pipeline has been **scheduled** to run **daily at 10 am** using **Apache Airflow**. <br>
 
-+ **Dashboard designed in Plotly using one week of collected data**
++ **Dashboard designed in Dash using one week of collected data**
 <img src="screenshot/dash.png" />
 
 Link to dashboard app : [Dashboard app](https://github.com/amald94/kijiji_etl_azure/tree/main/dashboard "Heading link")
