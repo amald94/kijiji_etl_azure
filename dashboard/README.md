@@ -1,6 +1,6 @@
 
 
-<img src="./screenshot/architecture.png" />
+<img src="../screenshot/architecture.png" />
 
 Install the required python packages
 ```sh
