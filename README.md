@@ -5,7 +5,7 @@ The Kijiji scraper is a web scraper created using BS4 and Python to collect rent
 + **Dashboard designed in Dash using one week of collected data**
 <img src="screenshot/dash.png" />
 
-Link to dashboard app : [Dashboard app](https://kijiji-app-moset6lirq-uc.a.run.app/ "Heading link")
+Dockerized dashboard app running on **GCP** : [Dashboard app](https://kijiji-app-moset6lirq-uc.a.run.app/ "Heading link")
 
 + **Project Architecture**
 
