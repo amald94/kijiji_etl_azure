@@ -16,7 +16,9 @@ Dockerized dashboard app running on **GCP** : [Dashboard app](https://kijiji-app
     + **Azure Data Lake** : Used to store both raw and processed data.
     + **Azure Databricks** : Used to process the raw data.
     + **Azure Data Factory** : Used to schedule a daily trigger at 10 pm to run notebooks in Databricks once files are available in the Data Lake. 
-    + **Docker** : Used to run airflow in Windows machine
+    + **Docker** : Used to run airflow in Windows machine & containerizing dash app
+    + **GCP container registry**
+    + **GCP cloud run**
 
 + **Data Collection**
     + Schedule an airflow dag to run daily at 10 am to collect the listings
